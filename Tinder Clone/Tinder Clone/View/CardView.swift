@@ -20,7 +20,7 @@ class CardView: UIView {
         let iv = UIImageView()
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.image = #imageLiteral(resourceName: "lady4c")
+        iv.image = #imageLiteral(resourceName: "jane2")
         return iv
     }()
     
@@ -47,12 +47,14 @@ class CardView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureViewUI()
+        configureGestureRecognizers()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //this gets called when the views finish laying out all of the subviews so it then recognizes the frame, if we do it before that we will have a frame of 0
     override func layoutSubviews() {
         gradientLayer.frame = self.frame
     }
@@ -75,11 +77,63 @@ class CardView: UIView {
         infoButton.centerY(inView: infoLabel)
         infoButton.anchor(trailing: safeAreaLayoutGuide.trailingAnchor, paddingTrailing: 16)
         
+    }
+    
+    private func configureGestureRecognizers() {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        addGestureRecognizer(pan)
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleChangePhoto))
+        addGestureRecognizer(tap)
+    }
+    
+    private func resetCardPosition(sender: UIPanGestureRecognizer) {
+        let direction: SwipeDirection = sender.translation(in: self).x > 100 ? .right: .left
+        let shouldDismissCard = abs(sender.translation(in: self).x) > 100
+        
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseInOut) {
+            if shouldDismissCard {
+                let xTranslation = CGFloat(direction.rawValue) * 600
+                let offScreenTransform = self.transform.translatedBy(x: xTranslation, y: 0)
+                self.transform = offScreenTransform
+            } else {
+                self.transform = .identity
+            }
+        } completion: { _ in
+            if shouldDismissCard {
+                self.removeFromSuperview()
+            }
+        }
+    }
+    
+    private func panCard(sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self)
+        let degrees: CGFloat = translation.x / 20
+        let angle = degrees * .pi / 100
+        let rotationalTransform = CGAffineTransform(rotationAngle: angle)
+        self.transform = rotationalTransform.translatedBy(x: translation.x, y: translation.y)
     }
     
     //MARK: - Selectors
     @objc private func handleInfoButtonTapped() {
         print("DEBUG: Info button tapped")
+    }
+    
+    @objc private func handlePanGesture(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            //this makes sure the swiping remains smooth in the case where someone is swiping fast
+            superview?.subviews.forEach({$0.layer.removeAllAnimations()})
+        case .changed:
+            panCard(sender: sender)
+        case .ended:
+            resetCardPosition(sender: sender)
+        default:
+            break
+        }
+    }
+    
+    @objc private func handleChangePhoto(sender: UITapGestureRecognizer) {
+        print("DEBUG: Did tap on photo")
     }
 }

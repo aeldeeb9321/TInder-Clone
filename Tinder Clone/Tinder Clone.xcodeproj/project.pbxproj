@@ -16,6 +16,7 @@
 		25664BCF298998B400D49135 /* HomeNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25664BCE298998B400D49135 /* HomeNavigationStackView.swift */; };
 		25664BD129899FD300D49135 /* BottomControlsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25664BD029899FD300D49135 /* BottomControlsStackView.swift */; };
 		25774D2E2989A72600A7EC13 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774D2D2989A72600A7EC13 /* CardView.swift */; };
+		25774D302989CE3600A7EC13 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774D2F2989CE3600A7EC13 /* SwipeDirection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		25664BCE298998B400D49135 /* HomeNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationStackView.swift; sourceTree = "<group>"; };
 		25664BD029899FD300D49135 /* BottomControlsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomControlsStackView.swift; sourceTree = "<group>"; };
 		25774D2D2989A72600A7EC13 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		25774D2F2989CE3600A7EC13 /* SwipeDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 		25664BCB2989970000D49135 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				25774D2F2989CE3600A7EC13 /* SwipeDirection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25774D302989CE3600A7EC13 /* SwipeDirection.swift in Sources */,
 				25774D2E2989A72600A7EC13 /* CardView.swift in Sources */,
 				25664BD129899FD300D49135 /* BottomControlsStackView.swift in Sources */,
 				25664BB72989966600D49135 /* HomeController.swift in Sources */,
