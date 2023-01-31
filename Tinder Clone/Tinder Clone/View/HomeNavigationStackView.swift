@@ -48,7 +48,6 @@ class HomeNavigationStackView: UIStackView {
             addArrangedSubview(view)
         }
         distribution = .equalSpacing
-        isLayoutMarginsRelativeArrangement = true
     }
     
     //MARK: - Selectors

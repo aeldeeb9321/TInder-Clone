@@ -19,6 +19,7 @@ class BottomControlsStackView: UIStackView {
     private lazy var dislikeButton: UIButton = {
         let button = UIButton().makeButton(withImage: #imageLiteral(resourceName: "dismiss_circle").withRenderingMode(.alwaysOriginal), isRounded: false)
         button.setDimensions(height: 40, width: 40)
+        button.layer.cornerRadius = 20
         button.addTarget(self, action: #selector(dislikeButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -60,7 +61,6 @@ class BottomControlsStackView: UIStackView {
             addArrangedSubview(view)
         }
         distribution = .fillEqually
-        isLayoutMarginsRelativeArrangement = true
     }
     
     //MARK: - Selectors

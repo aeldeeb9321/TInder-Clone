@@ -20,7 +20,7 @@ class HomeController: UIViewController {
     private let deckView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemPink
-        view.layer.cornerRadius = 5
+        view.layer.cornerRadius = 10
         return view
     }()
     
@@ -35,6 +35,7 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureCards()
     }
     
     //MARK: - Helpers
@@ -51,6 +52,15 @@ class HomeController: UIViewController {
         stack.fillSuperView(inView: view)
     }
 
+    private func configureCards() {
+        let cardView1 = CardView()
+        let cardView2 = CardView()
+        
+        deckView.addSubview(cardView1)
+        deckView.addSubview(cardView2)
+        cardView1.fillSuperView(inView: deckView)
+        cardView2.fillSuperView(inView: deckView)
+    }
 
     //MARK: - Selectors
     
