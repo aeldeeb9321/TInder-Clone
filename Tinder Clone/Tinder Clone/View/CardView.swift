@@ -9,6 +9,8 @@ import UIKit
 
 class CardView: UIView {
      //MARK: - Properties
+    private var viewModel: CardViewModel
+    
     private lazy var gradientLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
         layer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
@@ -16,22 +18,18 @@ class CardView: UIView {
         return layer
     }()
     
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let iv = UIImageView()
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.image = #imageLiteral(resourceName: "jane2")
+        iv.image = viewModel.user.images[0]
         return iv
     }()
     
-    private let infoLabel: UILabel = {
+    private lazy var infoLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        
-        let attributedText = NSMutableAttributedString(string: "Jane Doe", attributes: [.font : UIFont.systemFont(ofSize: 32, weight: .heavy), .foregroundColor: UIColor.white])
-        
-        attributedText.append(NSAttributedString(string: " 20", attributes: [.font : UIFont.systemFont(ofSize: 24), .foregroundColor: UIColor.white]))
-        label.attributedText = attributedText
+        label.attributedText = viewModel.userInfoText
         return label
     }()
     
@@ -44,8 +42,9 @@ class CardView: UIView {
     
     //MARK: - LifeCycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(viewModel: CardViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: .zero)
         configureViewUI()
         configureGestureRecognizers()
     }
@@ -61,7 +60,6 @@ class CardView: UIView {
     
     //MARK: - Helpers
     private func configureViewUI() {
-        backgroundColor = .systemPurple
         layer.cornerRadius = 10
         clipsToBounds = true
         
@@ -134,6 +132,16 @@ class CardView: UIView {
     }
     
     @objc private func handleChangePhoto(sender: UITapGestureRecognizer) {
-        print("DEBUG: Did tap on photo")
+        let location = sender.location(in: self).x
+        let shouldShowNextPhoto = location > self.frame.width / 2
+        
+        if shouldShowNextPhoto {
+            viewModel.showNextPhoto()
+        } else {
+            viewModel.showPreviousPhoto()
+        }
+        
+        imageView.image = viewModel.imageToShow
     }
+    
 }
