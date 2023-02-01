@@ -56,10 +56,19 @@ extension UIView {
 extension UITextField {
     func makeTextField(placeholder: String, isSecureField: Bool) -> UITextField {
         let tf = UITextField()
-        tf.borderStyle = .bezel
+        
+        //this adds a bit of space to the left side so the text isnt sticking to the bar
+        let spacer = UIView()
+        spacer.setDimensions(height: 50, width: 12)
+        tf.leftView = spacer
+        tf.leftViewMode = .always
+        
+        tf.borderStyle = .none
         tf.textColor = .black
-        tf.backgroundColor = .white
+        tf.backgroundColor = .white.withAlphaComponent(0.2)
         tf.font = UIFont.systemFont(ofSize: 16)
+        tf.setDimensions(height: 50)
+        tf.layer.cornerRadius = 5
         tf.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [.foregroundColor : UIColor.darkGray])
         tf.isSecureTextEntry = isSecureField
         return tf
