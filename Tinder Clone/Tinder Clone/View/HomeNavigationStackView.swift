@@ -27,7 +27,7 @@ class HomeNavigationStackView: UIStackView {
         let iv = UIImageView()
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFit
-        iv.image = #imageLiteral(resourceName: "app_icon")
+        iv.image = #imageLiteral(resourceName: "app_icon").withTintColor(.systemRed)
         iv.setDimensions(height: 40, width: 40)
         return iv
     }()

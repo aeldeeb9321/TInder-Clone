@@ -10,6 +10,7 @@ import UIKit
 class RegistrationController: UIViewController {
     
     //MARK: - Properties
+    private var viewModel = RegistrationViewModel()
     
     private lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
@@ -28,24 +29,28 @@ class RegistrationController: UIViewController {
         return button
     }()
     
-    private let emailTextField: UITextField = {
+    private lazy var emailTextField: UITextField = {
         let tf = UITextField().makeTextField(placeholder: "Email", isSecureField: false)
+        tf.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         return tf
     }()
     
-    private let fullNameTextField: UITextField = {
+    private lazy var fullNameTextField: UITextField = {
         let tf = UITextField().makeTextField(placeholder: "Full Name", isSecureField: false)
+        tf.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         return tf
     }()
     
-    private let passwordTextField: UITextField = {
+    private lazy var passwordTextField: UITextField = {
         let tf = UITextField().makeTextField(placeholder: "Password", isSecureField: true)
+        tf.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         return tf
     }()
     
     private lazy var registerButton: UIButton = {
-        let button = UIButton().makeButton(withTitle: "Register", titleColor: .white, buttonColor: .systemPink.withAlphaComponent(0.5), isRounded: true)
+        let button = UIButton().makeButton(withTitle: "Register", titleColor: .white, buttonColor: #colorLiteral(red: 0.9162762761, green: 0.4746812582, blue: 0.6477261186, alpha: 1), isRounded: true)
         button.addTarget(self, action: #selector(handleRegisterButtonTapped), for: .touchUpInside)
+        button.isEnabled = false
         return button
     }()
     
@@ -93,8 +98,8 @@ class RegistrationController: UIViewController {
     }
     
     private func configureGradientLayer() {
-        let topColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
-        let bottomColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+        let topColor = #colorLiteral(red: 0.9870117307, green: 0.3371186554, blue: 0.3815881014, alpha: 1)
+        let bottomColor = #colorLiteral(red: 0.9022251368, green: 0.0136291096, blue: 0.4533215761, alpha: 1)
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.locations = [0, 1]
@@ -102,6 +107,16 @@ class RegistrationController: UIViewController {
         gradientLayer.frame = view.frame
         view.layer.addSublayer(gradientLayer)
        
+    }
+    
+    private func checkFormStatus() {
+        if viewModel.formIsValid {
+            registerButton.isEnabled = true
+            registerButton.backgroundColor = #colorLiteral(red: 0.8000829816, green: 0.01546252612, blue: 0.3419479728, alpha: 1)
+        } else {
+            registerButton.isEnabled = false
+            registerButton.backgroundColor = #colorLiteral(red: 0.9162762761, green: 0.4746812582, blue: 0.6477261186, alpha: 1)
+        }
     }
     
     //MARK: - Selectors
@@ -118,6 +133,18 @@ class RegistrationController: UIViewController {
     @objc private func handlePresentLoginPage() {
         navigationController?.popViewController(animated: true)
     }
+    
+    @objc private func textDidChange(sender: UITextField) {
+        if sender == emailTextField {
+            viewModel.email = sender.text
+        } else if sender == passwordTextField {
+            viewModel.password = sender.text
+        } else {
+            viewModel.fullname = sender.text
+        }
+        
+        checkFormStatus()
+    }
 }
 
 //MARK: - UIImagePickerControllerDelegate/UINavigationControllerDelegate
@@ -125,6 +152,8 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
         addPhotoButton.setImage(selectedImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        addPhotoButton.layer.borderColor = UIColor(white: 1, alpha: 0.87).cgColor
+        addPhotoButton.layer.borderWidth = 3
         dismiss(animated: true)
     }
 }

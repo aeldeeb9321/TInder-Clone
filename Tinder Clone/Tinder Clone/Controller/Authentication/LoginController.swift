@@ -9,6 +9,8 @@ import UIKit
 
 class LoginController: UIViewController {
     //MARK: - Properties
+    private var viewModel = LoginViewModel()
+    
     private let iconImageView: UIImageView = {
         let iv = UIImageView()
         iv.clipsToBounds = true
@@ -18,18 +20,21 @@ class LoginController: UIViewController {
         return iv
     }()
     
-    private let emailTextField: UITextField = {
+    private lazy var emailTextField: UITextField = {
         let tf = UITextField().makeTextField(placeholder: "Email", isSecureField: false)
+        tf.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         return tf
     }()
     
-    private let passwordTextField: UITextField = {
+    private lazy var passwordTextField: UITextField = {
         let tf = UITextField().makeTextField(placeholder: "Password", isSecureField: true)
+        tf.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         return tf
     }()
     
     private lazy var loginButton: UIButton = {
-        let button = UIButton().makeButton(withTitle: "Log In", titleColor: .white, buttonColor: .systemPink.withAlphaComponent(0.5), isRounded: true)
+        let button = UIButton().makeButton(withTitle: "Log In", titleColor: .white, buttonColor: #colorLiteral(red: 0.9162762761, green: 0.4746812582, blue: 0.6477261186, alpha: 1), isRounded: true)
+        button.isEnabled = false
         button.addTarget(self, action: #selector(handleLoginButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -63,7 +68,6 @@ class LoginController: UIViewController {
         iconImageView.centerX(inView: view)
         iconImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 32)
         
-        
         let loginStack = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton])
         loginStack.spacing = 16
         loginStack.axis = .vertical
@@ -78,8 +82,8 @@ class LoginController: UIViewController {
     }
     
     private func configureGradientLayer() {
-        let topColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
-        let bottomColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+        let topColor = #colorLiteral(red: 0.9227107167, green: 0.3313664198, blue: 0.3586452603, alpha: 1)
+        let bottomColor = #colorLiteral(red: 0.9022251368, green: 0.0136291096, blue: 0.4533215761, alpha: 1)
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.locations = [0, 1]
@@ -89,6 +93,16 @@ class LoginController: UIViewController {
        
     }
     
+    private func checkFormStatus() {
+        if viewModel.formIsValid {
+            loginButton.isEnabled = true
+            loginButton.backgroundColor = #colorLiteral(red: 0.8000829816, green: 0.01546252612, blue: 0.3419479728, alpha: 1)
+        } else {
+            loginButton.isEnabled = false
+            loginButton.backgroundColor = #colorLiteral(red: 0.9162762761, green: 0.4746812582, blue: 0.6477261186, alpha: 1)
+        }
+    }
+    
     //MARK: - Selectors
     @objc private func handleLoginButtonTapped() {
         print("DEBUG: User is logging in..")
@@ -96,5 +110,15 @@ class LoginController: UIViewController {
     
     @objc private func handlePresentRegistrationPage() {
         navigationController?.pushViewController(RegistrationController(), animated: true)
+    }
+    
+    @objc private func textDidChange(sender: UITextField) {
+        if sender == emailTextField {
+            viewModel.email = sender.text
+        } else {
+            viewModel.password = sender.text
+        }
+        
+        checkFormStatus()
     }
 }

@@ -21,6 +21,7 @@
 		25774D342989D31200A7EC13 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774D332989D31200A7EC13 /* CardViewModel.swift */; };
 		25774D37298B050500A7EC13 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774D36298B050500A7EC13 /* LoginController.swift */; };
 		25774D39298B050E00A7EC13 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774D38298B050E00A7EC13 /* RegistrationController.swift */; };
+		25774DD9299052D200A7EC13 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DD8299052D200A7EC13 /* AuthenticationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		25774D332989D31200A7EC13 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		25774D36298B050500A7EC13 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		25774D38298B050E00A7EC13 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		25774DD8299052D200A7EC13 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				25774D332989D31200A7EC13 /* CardViewModel.swift */,
+				25774DD8299052D200A7EC13 /* AuthenticationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25774DD9299052D200A7EC13 /* AuthenticationViewModel.swift in Sources */,
 				25774D37298B050500A7EC13 /* LoginController.swift in Sources */,
 				25774D302989CE3600A7EC13 /* SwipeDirection.swift in Sources */,
 				25774D2E2989A72600A7EC13 /* CardView.swift in Sources */,
