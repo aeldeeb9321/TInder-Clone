@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeController: UIViewController {
     
@@ -34,8 +35,28 @@ class HomeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkIfUserIsLoggedIn()
         configureUI()
         configureCards()
+        logOut()
+    }
+    
+    //MARK: - API
+    private func checkIfUserIsLoggedIn() {
+        if Auth.auth().currentUser == nil {
+            presentLoginController()
+        } else {
+            print("DEBUG: User is logged in")
+        }
+    }
+    
+    private func logOut() {
+        do {
+            try Auth.auth().signOut()
+            presentLoginController()
+        } catch {
+            print("DEBUG: Failed to sign out..")
+        }
     }
     
     //MARK: - Helpers
@@ -66,6 +87,14 @@ class HomeController: UIViewController {
         cardView2.fillSuperView(inView: deckView)
     }
 
+    private func presentLoginController() {
+        DispatchQueue.main.async {
+            let controller = LoginController()
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true)
+        }
+    }
     //MARK: - Selectors
     
 }

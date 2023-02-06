@@ -12,6 +12,8 @@ class RegistrationController: UIViewController {
     //MARK: - Properties
     private var viewModel = RegistrationViewModel()
     
+    private var profileImage: UIImage?
+    
     private lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -127,7 +129,21 @@ class RegistrationController: UIViewController {
     }
     
     @objc private func handleRegisterButtonTapped() {
-        print("DEBUG: User is signing up..")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let fullname = fullNameTextField.text else { return }
+        guard let profileImage = profileImage else { return }
+        
+        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, profileImage: profileImage)
+        
+        AuthService.registerUser(withCredentials: credentials) { error in
+            if let error = error {
+                print("DEBUG: Error signing user up \(error.localizedDescription)")
+                return
+            }
+            
+            print("DEBUG: Successfully registered user...")
+        }
     }
     
     @objc private func handlePresentLoginPage() {
@@ -151,6 +167,7 @@ class RegistrationController: UIViewController {
 extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
+        self.profileImage = selectedImage
         addPhotoButton.setImage(selectedImage.withRenderingMode(.alwaysOriginal), for: .normal)
         addPhotoButton.layer.borderColor = UIColor(white: 1, alpha: 0.87).cgColor
         addPhotoButton.layer.borderWidth = 3

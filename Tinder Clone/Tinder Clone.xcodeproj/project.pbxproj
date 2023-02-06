@@ -28,6 +28,8 @@
 		25774DE229906BE300A7EC13 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 25774DE129906BE300A7EC13 /* FirebaseMessaging */; };
 		25774DE429906BE300A7EC13 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 25774DE329906BE300A7EC13 /* FirebaseStorage */; };
 		25774DE729906CEE00A7EC13 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 25774DE629906CEE00A7EC13 /* JGProgressHUD */; };
+		25774DE92991851D00A7EC13 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DE82991851D00A7EC13 /* AuthService.swift */; };
+		25774DEB2991852600A7EC13 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DEA2991852600A7EC13 /* Service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		25774D38298B050E00A7EC13 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		25774DD8299052D200A7EC13 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		25774DDA29906B6900A7EC13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		25774DE82991851D00A7EC13 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		25774DEA2991852600A7EC13 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +117,8 @@
 		25664BC7298996F500D49135 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				25774DE82991851D00A7EC13 /* AuthService.swift */,
+				25774DEA2991852600A7EC13 /* Service.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -247,6 +253,7 @@
 			files = (
 				25774DD9299052D200A7EC13 /* AuthenticationViewModel.swift in Sources */,
 				25774D37298B050500A7EC13 /* LoginController.swift in Sources */,
+				25774DEB2991852600A7EC13 /* Service.swift in Sources */,
 				25774D302989CE3600A7EC13 /* SwipeDirection.swift in Sources */,
 				25774D2E2989A72600A7EC13 /* CardView.swift in Sources */,
 				25664BD129899FD300D49135 /* BottomControlsStackView.swift in Sources */,
@@ -258,6 +265,7 @@
 				25664BB52989966600D49135 /* SceneDelegate.swift in Sources */,
 				25774D39298B050E00A7EC13 /* RegistrationController.swift in Sources */,
 				25664BCD2989983600D49135 /* Extensions.swift in Sources */,
+				25774DE92991851D00A7EC13 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
