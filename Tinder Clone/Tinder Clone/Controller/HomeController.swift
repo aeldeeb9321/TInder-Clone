@@ -18,8 +18,9 @@ class HomeController: UIViewController {
     }
     
     //instead of coding all the stackview properties and setting it up we just put it all in this custom subclass
-    private let navStackView: HomeNavigationStackView = {
+    private lazy var navStackView: HomeNavigationStackView = {
         let stackView = HomeNavigationStackView()
+        stackView.delegate = self
         return stackView
     }()
     
@@ -111,7 +112,22 @@ class HomeController: UIViewController {
             self.present(nav, animated: true)
         }
     }
+    
     //MARK: - Selectors
+    
+}
+
+extension HomeController: HomeNavigationStackViewDelegate {
+    func displayMessages() {
+        //present Messages
+        present(MessagesController(), animated: true)
+    }
+    
+    func displaySettings() {
+        //push setting controller
+        present(SettingsController(), animated: true)
+    }
+    
     
 }
 

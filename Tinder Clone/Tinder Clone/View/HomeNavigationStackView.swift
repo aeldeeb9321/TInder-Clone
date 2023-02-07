@@ -7,8 +7,15 @@
 
 import UIKit
 
+protocol HomeNavigationStackViewDelegate: AnyObject {
+    func displaySettings()
+    func displayMessages()
+}
+
 class HomeNavigationStackView: UIStackView {
     //MARK: - Properties
+    weak var delegate: HomeNavigationStackViewDelegate?
+    
     private lazy var settingsButton: UIButton = {
         let button = UIButton().makeButton(withImage: #imageLiteral(resourceName: "top_left_profile").withRenderingMode(.alwaysOriginal), isRounded: false)
         button.setDimensions(height: 40, width: 40)
@@ -52,10 +59,10 @@ class HomeNavigationStackView: UIStackView {
     
     //MARK: - Selectors
     @objc private func handleSettingsButtonTapped() {
-        
+        delegate?.displaySettings()
     }
     
     @objc private func handleMessageButtonTapped() {
-        
+        delegate?.displayMessages()
     }
 }

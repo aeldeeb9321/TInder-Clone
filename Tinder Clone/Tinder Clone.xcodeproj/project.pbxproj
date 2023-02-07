@@ -31,6 +31,8 @@
 		25774DE92991851D00A7EC13 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DE82991851D00A7EC13 /* AuthService.swift */; };
 		25774DEB2991852600A7EC13 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DEA2991852600A7EC13 /* Service.swift */; };
 		25774DED2992DC2E00A7EC13 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DEC2992DC2E00A7EC13 /* Constants.swift */; };
+		25774DEF2992FF3200A7EC13 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DEE2992FF3200A7EC13 /* SettingsController.swift */; };
+		25774DF12992FFD100A7EC13 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DF02992FFD100A7EC13 /* MessagesController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		25774DE82991851D00A7EC13 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		25774DEA2991852600A7EC13 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		25774DEC2992DC2E00A7EC13 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		25774DEE2992FF3200A7EC13 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		25774DF02992FFD100A7EC13 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +135,8 @@
 			children = (
 				25774D35298B04F300A7EC13 /* Authentication */,
 				25664BB62989966600D49135 /* HomeController.swift */,
+				25774DEE2992FF3200A7EC13 /* SettingsController.swift */,
+				25774DF02992FFD100A7EC13 /* MessagesController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -257,6 +263,7 @@
 				25774DD9299052D200A7EC13 /* AuthenticationViewModel.swift in Sources */,
 				25774D37298B050500A7EC13 /* LoginController.swift in Sources */,
 				25774DEB2991852600A7EC13 /* Service.swift in Sources */,
+				25774DEF2992FF3200A7EC13 /* SettingsController.swift in Sources */,
 				25774D302989CE3600A7EC13 /* SwipeDirection.swift in Sources */,
 				25774D2E2989A72600A7EC13 /* CardView.swift in Sources */,
 				25664BD129899FD300D49135 /* BottomControlsStackView.swift in Sources */,
@@ -270,6 +277,7 @@
 				25774D39298B050E00A7EC13 /* RegistrationController.swift in Sources */,
 				25664BCD2989983600D49135 /* Extensions.swift in Sources */,
 				25774DE92991851D00A7EC13 /* AuthService.swift in Sources */,
+				25774DF12992FFD100A7EC13 /* MessagesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
