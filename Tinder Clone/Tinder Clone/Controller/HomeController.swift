@@ -11,6 +11,7 @@ import Firebase
 class HomeController: UIViewController {
     
     //MARK: - Properties
+    private var users = [User]()
     
     //instead of coding all the stackview properties and setting it up we just put it all in this custom subclass
     private let navStackView: HomeNavigationStackView = {
@@ -38,10 +39,26 @@ class HomeController: UIViewController {
         checkIfUserIsLoggedIn()
         configureUI()
         configureCards()
+        fetchUsers()
         //logOut()
     }
     
     //MARK: - API
+    
+    private func fetchUser() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        Service.fetchUser(withUID: uid) { user in
+            print("DEBUG: User's name is \(user)")
+        }
+    }
+    
+    private func fetchUsers() {
+        Service.fetchUsers { users in
+            print(users)
+        }
+    }
+    
     private func checkIfUserIsLoggedIn() {
         if Auth.auth().currentUser == nil {
             presentLoginController()
@@ -75,16 +92,16 @@ class HomeController: UIViewController {
 
     private func configureCards() {
         
-        let user1 = User(name: "Jane Doe", age: 22, images: [#imageLiteral(resourceName: "jane1"), #imageLiteral(resourceName: "jane3")])
-        let user2 = User(name: "Sally Ripper", age: 21, images: [#imageLiteral(resourceName: "lady5c"), #imageLiteral(resourceName: "kelly1")])
-        
-        let cardView1 = CardView(viewModel: CardViewModel(user: user1))
-        let cardView2 = CardView(viewModel: CardViewModel(user: user2))
-        
-        deckView.addSubview(cardView1)
-        deckView.addSubview(cardView2)
-        cardView1.fillSuperView(inView: deckView)
-        cardView2.fillSuperView(inView: deckView)
+//        let user1 = User(name: "Jane Doe", age: 22, images: [#imageLiteral(resourceName: "jane1"), #imageLiteral(resourceName: "jane3")])
+//        let user2 = User(name: "Sally Ripper", age: 21, images: [#imageLiteral(resourceName: "lady5c"), #imageLiteral(resourceName: "kelly1")])
+//
+//        let cardView1 = CardView(viewModel: CardViewModel(user: user1))
+//        let cardView2 = CardView(viewModel: CardViewModel(user: user2))
+//
+//        deckView.addSubview(cardView1)
+//        deckView.addSubview(cardView2)
+//        cardView1.fillSuperView(inView: deckView)
+//        cardView2.fillSuperView(inView: deckView)
     }
 
     private func presentLoginController() {

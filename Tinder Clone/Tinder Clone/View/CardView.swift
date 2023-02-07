@@ -22,7 +22,7 @@ class CardView: UIView {
         let iv = UIImageView()
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.image = viewModel.user.images[0]
+        //iv.image = viewModel.user.images[0]
         return iv
     }()
     
@@ -141,7 +141,7 @@ class CardView: UIView {
             viewModel.showPreviousPhoto()
         }
         
-        imageView.image = viewModel.imageToShow
+        //imageView.image = viewModel.imageToShow
     }
     
 }

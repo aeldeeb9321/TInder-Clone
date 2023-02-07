@@ -9,6 +9,28 @@ import UIKit
 import FirebaseStorage
 
 struct Service {
+    
+    static func fetchUser(withUID uid: String, completion: @escaping(User) -> Void) {
+        COLLECTION_USERS.document(uid).getDocument { snapshot, error in
+            guard let dictionary = snapshot?.data() else { return }
+            let user = User(dictionary: dictionary)
+            completion(user)
+        }
+    }
+    
+    static func fetchUsers(completion: @escaping([User]) -> Void) {
+        var users = [User]()
+        COLLECTION_USERS.getDocuments { snapshot, errror in
+            //the snapshot documents comes back as an array of dictionaries
+            snapshot?.documents.forEach({ document in
+                let dictionary = document.data()
+                let user = User(dictionary: dictionary)
+                users.append(user)
+            })
+            completion(users)
+        }
+    }
+    
     static func uploadImage(image: UIImage, completion: @escaping(String) -> Void) {
         //creating imageData to be able to upload it to the database
         guard let imageData = image.jpegData(compressionQuality: 0.75) else { return }

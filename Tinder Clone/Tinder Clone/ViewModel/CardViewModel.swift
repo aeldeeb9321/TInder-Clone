@@ -15,7 +15,7 @@ struct CardViewModel {
     
     private var imageIndex = 0
     
-    lazy var imageToShow = user.images.first!
+   // lazy var imageToShow = user.images.first!
     
     //MARK: - Init
     init(user: User) {
@@ -31,15 +31,15 @@ struct CardViewModel {
     //MARK: - Helpers
     
     mutating func showNextPhoto() {
-        guard imageIndex < user.images.count - 1 else { return }
-        imageIndex += 1
-        self.imageToShow = user.images[imageIndex]
+//        guard imageIndex < user.images.count - 1 else { return }
+//        imageIndex += 1
+//        self.imageToShow = user.images[imageIndex]
     }
     
     mutating func showPreviousPhoto() {
-        guard imageIndex > 0 else { return }
-        imageIndex -= 1
-        self.imageToShow = user.images[imageIndex]
+//        guard imageIndex > 0 else { return }
+//        imageIndex -= 1
+//        self.imageToShow = user.images[imageIndex]
     }
     
 }
