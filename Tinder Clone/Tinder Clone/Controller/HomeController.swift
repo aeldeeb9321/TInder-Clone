@@ -11,7 +11,11 @@ import Firebase
 class HomeController: UIViewController {
     
     //MARK: - Properties
-    private var users = [User]()
+    private var viewModels = [CardViewModel]() {
+        didSet {
+            configureCards()
+        }
+    }
     
     //instead of coding all the stackview properties and setting it up we just put it all in this custom subclass
     private let navStackView: HomeNavigationStackView = {
@@ -38,7 +42,6 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         checkIfUserIsLoggedIn()
         configureUI()
-        configureCards()
         fetchUsers()
         //logOut()
     }
@@ -55,7 +58,8 @@ class HomeController: UIViewController {
     
     private func fetchUsers() {
         Service.fetchUsers { users in
-            print(users)
+            //one line of code instead of a users.forEach and appending a viewModel with each user
+            self.viewModels = users.map({CardViewModel(user: $0)})
         }
     }
     
@@ -91,17 +95,12 @@ class HomeController: UIViewController {
     }
 
     private func configureCards() {
-        
-//        let user1 = User(name: "Jane Doe", age: 22, images: [#imageLiteral(resourceName: "jane1"), #imageLiteral(resourceName: "jane3")])
-//        let user2 = User(name: "Sally Ripper", age: 21, images: [#imageLiteral(resourceName: "lady5c"), #imageLiteral(resourceName: "kelly1")])
-//
-//        let cardView1 = CardView(viewModel: CardViewModel(user: user1))
-//        let cardView2 = CardView(viewModel: CardViewModel(user: user2))
-//
-//        deckView.addSubview(cardView1)
-//        deckView.addSubview(cardView2)
-//        cardView1.fillSuperView(inView: deckView)
-//        cardView2.fillSuperView(inView: deckView)
+        viewModels.forEach { viewModel in
+            let cardView = CardView(viewModel: viewModel)
+            deckView.addSubview(cardView)
+            cardView.fillSuperView(inView: deckView)
+        }
+
     }
 
     private func presentLoginController() {

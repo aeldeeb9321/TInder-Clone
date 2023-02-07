@@ -22,7 +22,16 @@ class CardView: UIView {
         let iv = UIImageView()
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        //iv.image = viewModel.user.images[0]
+        Service.fetchImageData(imageUrl: viewModel.imageUrl) { result in
+            switch result {
+            case .success(let imagedata):
+                DispatchQueue.main.async {
+                    iv.image = UIImage(data: imagedata)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
         return iv
     }()
     

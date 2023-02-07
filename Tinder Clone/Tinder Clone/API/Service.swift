@@ -8,7 +8,14 @@
 import UIKit
 import FirebaseStorage
 
-struct Service {
+enum NetworkError: Error {
+    case BadResponse
+    case BadStatusCode(Int)
+    case BadData
+}
+
+final class Service {
+    private let session = URLSession(configuration: .default)
     
     static func fetchUser(withUID uid: String, completion: @escaping(User) -> Void) {
         COLLECTION_USERS.document(uid).getDocument { snapshot, error in
@@ -51,5 +58,39 @@ struct Service {
                 completion(imageUrl)
             }
         }
+    }
+    
+    static func fetchImageData(imageUrl: URL?, completion: @escaping(Result<Data, NetworkError>) -> ()) {
+        guard let url = imageUrl else { return }
+        
+        URLSession.shared.downloadTask(with: url) { localUrl, response, error in
+            guard error == nil else {
+                completion(.failure(NetworkError.BadData))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse else {
+                completion(.failure(NetworkError.BadResponse))
+                return
+            }
+            
+            guard(200...299).contains(response.statusCode) else {
+                completion(.failure(NetworkError.BadStatusCode(response.statusCode)))
+                return
+            }
+            
+            guard let localUrl = localUrl else {
+                completion(.failure(NetworkError.BadData))
+                return
+            }
+            
+            do {
+                let imageData = try Data(contentsOf: localUrl)
+                completion(.success(imageData))
+            } catch let error {
+                print(error)
+            }
+        }.resume()
+        
     }
 }

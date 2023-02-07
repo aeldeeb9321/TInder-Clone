@@ -15,7 +15,7 @@ struct CardViewModel {
     
     private var imageIndex = 0
     
-   // lazy var imageToShow = user.images.first!
+    var imageUrl: URL?
     
     //MARK: - Init
     init(user: User) {
@@ -26,6 +26,8 @@ struct CardViewModel {
         attributedText.append(NSAttributedString(string: " \(user.age)", attributes: [.font : UIFont.systemFont(ofSize: 24), .foregroundColor: UIColor.white]))
         
         self.userInfoText = attributedText
+        
+        self.imageUrl = URL(string: user.profileImageUrl)
     }
     
     //MARK: - Helpers
