@@ -15,8 +15,10 @@ class SettingsHeader: UIView {
     
     //MARK: - Properties
     
-    var buttons = [UIButton]()
+    weak var delegate: SettingsHeaderDelegate?
     
+    var buttons = [UIButton]()
+
     //MARK: - Init
     
     override init(frame: CGRect) {
@@ -32,9 +34,14 @@ class SettingsHeader: UIView {
     
     private func configureViewComponents() {
         backgroundColor = .systemGroupedBackground
-        let button1 = createButton()
-        let button2 = createButton()
-        let button3 = createButton()
+        
+        let button1 = createButton(0)
+        let button2 = createButton(1)
+        let button3 = createButton(2)
+        
+        buttons.append(button1)
+        buttons.append(button2)
+        buttons.append(button3)
         
         addSubview(button1)
         button1.anchor(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, paddingTop: 16, paddingLeading: 16, paddingBottom: 16)
@@ -49,7 +56,7 @@ class SettingsHeader: UIView {
         stack.anchor(top: topAnchor, leading: button1.trailingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, paddingTop: 16, paddingLeading: 16, paddingBottom: 16, paddingTrailing: 16)
     }
     
-    private func createButton() -> UIButton {
+    private func createButton(_ index: Int) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle("Select Photo", for: .normal)
         button.layer.cornerRadius = 10
@@ -57,12 +64,15 @@ class SettingsHeader: UIView {
         button.clipsToBounds = true
         button.backgroundColor = .white
         button.imageView?.contentMode = .scaleAspectFill
+        button.tag = index
         return button
     }
     
     //MARK: - Selectors
     
-    @objc private func handleSelectPhoto() {
+    @objc private func handleSelectPhoto(sender: UIButton) {
         //delegate method
+        delegate?.settingsHeader(self, didSelect: sender.tag)
     }
+    
 }
