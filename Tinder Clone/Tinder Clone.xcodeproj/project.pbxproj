@@ -33,6 +33,7 @@
 		25774DED2992DC2E00A7EC13 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DEC2992DC2E00A7EC13 /* Constants.swift */; };
 		25774DEF2992FF3200A7EC13 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DEE2992FF3200A7EC13 /* SettingsController.swift */; };
 		25774DF12992FFD100A7EC13 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774DF02992FFD100A7EC13 /* MessagesController.swift */; };
+		25774E6029958ACD00A7EC13 /* SettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774E5F29958ACD00A7EC13 /* SettingsHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		25774DEC2992DC2E00A7EC13 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		25774DEE2992FF3200A7EC13 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		25774DF02992FFD100A7EC13 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
+		25774E5F29958ACD00A7EC13 /* SettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				25664BCE298998B400D49135 /* HomeNavigationStackView.swift */,
 				25664BD029899FD300D49135 /* BottomControlsStackView.swift */,
 				25774D2D2989A72600A7EC13 /* CardView.swift */,
+				25774E5F29958ACD00A7EC13 /* SettingsHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				25664BCF298998B400D49135 /* HomeNavigationStackView.swift in Sources */,
 				25664BB52989966600D49135 /* SceneDelegate.swift in Sources */,
 				25774D39298B050E00A7EC13 /* RegistrationController.swift in Sources */,
+				25774E6029958ACD00A7EC13 /* SettingsHeader.swift in Sources */,
 				25664BCD2989983600D49135 /* Extensions.swift in Sources */,
 				25774DE92991851D00A7EC13 /* AuthService.swift in Sources */,
 				25774DF12992FFD100A7EC13 /* MessagesController.swift in Sources */,

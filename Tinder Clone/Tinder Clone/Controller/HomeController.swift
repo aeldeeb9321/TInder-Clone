@@ -125,7 +125,9 @@ extension HomeController: HomeNavigationStackViewDelegate {
     
     func displaySettings() {
         //push setting controller
-        present(SettingsController(), animated: true)
+        let controller = UINavigationController(rootViewController: SettingsController())
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
     
     
