@@ -11,6 +11,8 @@ import Firebase
 class HomeController: UIViewController {
     
     //MARK: - Properties
+    private var user = User(dictionary: ["name": "Power"])
+    
     private var viewModels = [CardViewModel]() {
         didSet {
             configureCards()
@@ -125,7 +127,7 @@ extension HomeController: HomeNavigationStackViewDelegate {
     
     func displaySettings() {
         //push setting controller
-        let controller = UINavigationController(rootViewController: SettingsController())
+        let controller = UINavigationController(rootViewController: SettingsController(user: user))
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }

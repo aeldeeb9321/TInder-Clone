@@ -32,5 +32,19 @@ enum SettingsSections: Int, CustomStringConvertible, CaseIterable {
 
 struct SettingsViewModel {
     //where we configure all our tableView Data
+    private let user: User
+    private let section: SettingsSections
     
+    var shouldHideInputField: Bool{
+        return section == .AgeRange
+    }
+    
+    var shouldHideSlider: Bool {
+        return section != .AgeRange
+    }
+    
+    init(user: User, section: SettingsSections) {
+        self.user = user
+        self.section = section
+    }
 }

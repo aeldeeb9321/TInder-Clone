@@ -12,6 +12,8 @@ private let reuseId = "reuseId"
 class SettingsController: UITableViewController {
     
     //MARK: - Properties
+    private let user: User
+    
     private var imageIndex = 0
     
     private lazy var headerView: SettingsHeader = {
@@ -28,6 +30,15 @@ class SettingsController: UITableViewController {
         return picker
     }()
     
+    init(user: User) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +49,7 @@ class SettingsController: UITableViewController {
     private func configureUI() {
         tableView.register(SettingsCell.self, forCellReuseIdentifier: reuseId)
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .systemGroupedBackground
         tableView.tableHeaderView = headerView
         configureNavBar()
     }
@@ -73,6 +85,8 @@ class SettingsController: UITableViewController {
 extension SettingsController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! SettingsCell
+        guard let section = SettingsSections(rawValue: indexPath.section) else { return cell}
+        cell.viewModel = SettingsViewModel(user: user, section: section)
         return cell
     }
     
@@ -81,7 +95,7 @@ extension SettingsController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -89,7 +103,15 @@ extension SettingsController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 22
+        return 32
+    }
+    
+    //Used to dynamically set tableView row heights to tell it which row you want to modify, when you do tableView.rowHeight sets the height for the rows universally
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //lets use know which SettingsSection we are one
+        guard let section = SettingsSections(rawValue: indexPath.section) else { return 0}
+        //if the section is AgeRange then return a heigh of 96 otherwise return 44
+        return section == .AgeRange ? 96: 44
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
