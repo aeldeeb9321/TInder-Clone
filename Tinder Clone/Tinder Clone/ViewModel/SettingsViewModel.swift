@@ -35,6 +35,9 @@ struct SettingsViewModel {
     private let user: User
     private let section: SettingsSections
     
+    let placeHolderText: String
+    var value: String?
+    
     var shouldHideInputField: Bool{
         return section == .AgeRange
     }
@@ -46,5 +49,19 @@ struct SettingsViewModel {
     init(user: User, section: SettingsSections) {
         self.user = user
         self.section = section
+        placeHolderText = "Enter \(section.description.lowercased()) here.."
+        
+        switch section {
+        case .Name:
+            value = user.name
+        case .Profession:
+            value = user.profession
+        case .Age:
+            value = "\(user.age)"
+        case .Bio:
+            value = user.bio
+        case .AgeRange:
+            value = "\(user.minSeekingAge) - \(user.maxSeekingAge)"
+        }
     }
 }

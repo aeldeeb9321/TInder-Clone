@@ -11,7 +11,8 @@ import Firebase
 class HomeController: UIViewController {
     
     //MARK: - Properties
-    private var user = User(dictionary: ["name": "Power"])
+    //user needs to start out as optional because this is the root vc of our app and this is where we are fetching our user so when it starts out it will be nil
+    private var user: User?
     
     private var viewModels = [CardViewModel]() {
         didSet {
@@ -45,6 +46,7 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         checkIfUserIsLoggedIn()
         configureUI()
+        fetchUser()
         fetchUsers()
         //logOut()
     }
@@ -55,7 +57,7 @@ class HomeController: UIViewController {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         Service.fetchUser(withUID: uid) { user in
-            print("DEBUG: User's name is \(user)")
+            self.user = user
         }
     }
     
@@ -127,11 +129,11 @@ extension HomeController: HomeNavigationStackViewDelegate {
     
     func displaySettings() {
         //push setting controller
+        guard let user = user else { return }
         let controller = UINavigationController(rootViewController: SettingsController(user: user))
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
-    
     
 }
 

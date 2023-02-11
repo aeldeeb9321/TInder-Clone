@@ -17,7 +17,7 @@ class SettingsCell: UITableViewCell {
     }
     
     private lazy var inputField: UITextField = {
-        let tf = UITextField().makeTextField(placeholder: "Enter value here..", isSecureField: false)
+        let tf = UITextField().makeTextField(placeholder: "", isSecureField: false)
         return tf
     }()
     
@@ -83,7 +83,8 @@ class SettingsCell: UITableViewCell {
         guard let viewModel = viewModel else { return }
         sliderStack.isHidden = viewModel.shouldHideSlider
         inputField.isHidden = viewModel.shouldHideInputField
-        
+        inputField.placeholder = viewModel.placeHolderText
+        inputField.text = viewModel.value
     }
     
     //MARK: - Selectors

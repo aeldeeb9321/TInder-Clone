@@ -32,7 +32,7 @@ class SettingsController: UITableViewController {
     
     init(user: User) {
         self.user = user
-        super.init(nibName: nil, bundle: nil)
+        super.init(style: .plain)
     }
     
     required init?(coder: NSCoder) {
