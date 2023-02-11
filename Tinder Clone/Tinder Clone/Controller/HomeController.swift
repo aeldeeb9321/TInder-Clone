@@ -130,10 +130,18 @@ extension HomeController: HomeNavigationStackViewDelegate {
     func displaySettings() {
         //push setting controller
         guard let user = user else { return }
-        let controller = UINavigationController(rootViewController: SettingsController(user: user))
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        let controller = SettingsController(user: user)
+        controller.delegate = self
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true)
     }
-    
+}
+
+extension HomeController: SettingsControllerDelegate {
+    func settingsController(_ controller: SettingsController, wantsToUpdate user: User) {
+        controller.dismiss(animated: true)
+        self.user = user
+    }
 }
 

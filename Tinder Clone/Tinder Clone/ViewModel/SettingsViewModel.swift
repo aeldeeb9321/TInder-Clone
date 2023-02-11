@@ -33,7 +33,7 @@ enum SettingsSections: Int, CustomStringConvertible, CaseIterable {
 struct SettingsViewModel {
     //where we configure all our tableView Data
     private let user: User
-    private let section: SettingsSections
+    let section: SettingsSections
     
     let placeHolderText: String
     var value: String?

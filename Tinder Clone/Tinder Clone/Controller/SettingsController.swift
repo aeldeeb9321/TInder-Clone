@@ -9,12 +9,19 @@ import UIKit
 
 private let reuseId = "reuseId"
 
+protocol SettingsControllerDelegate: AnyObject {
+    //standard naming convention: name of the file, access to the file, and what it wants to do
+    func settingsController(_ controller: SettingsController, wantsToUpdate user: User)
+}
+
 class SettingsController: UITableViewController {
     
     //MARK: - Properties
-    private let user: User
+    private var user: User
     
     private var imageIndex = 0
+    
+    weak var delegate: SettingsControllerDelegate?
     
     private lazy var headerView: SettingsHeader = {
         let header = SettingsHeader()
@@ -77,6 +84,8 @@ class SettingsController: UITableViewController {
     
     @objc private func handleDone() {
         print("DEBUG: Handle did tap done..")
+        view.endEditing(true)
+        delegate?.settingsController(self, wantsToUpdate: user)
     }
 }
 
@@ -85,6 +94,7 @@ class SettingsController: UITableViewController {
 extension SettingsController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! SettingsCell
+        cell.delegate = self
         guard let section = SettingsSections(rawValue: indexPath.section) else { return cell}
         cell.viewModel = SettingsViewModel(user: user, section: section)
         return cell
@@ -139,4 +149,27 @@ extension SettingsController: UIImagePickerControllerDelegate, UINavigationContr
         
         dismiss(animated: true)
     }
+}
+
+//MARK: - SettingsCellDelegate
+
+extension SettingsController: SettingsCellDelegate {
+    func settingsCell(_cell: SettingsCell, wantsToUpdateUserWith value: String, forSection section: SettingsSections) {
+        switch section {
+        case .Name:
+            user.name = value
+        case .Profession:
+            user.profession = value
+        case .Age:
+            user.age = Int(value) ?? 18
+        case .Bio:
+            user.bio = value
+        case .AgeRange:
+            //need a seperate function to update this
+            break
+        }
+        
+        print("DEBUG: User is \(user)")
+    }
+    
 }

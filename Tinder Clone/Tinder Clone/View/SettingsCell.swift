@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol SettingsCellDelegate: AnyObject {
+    func settingsCell(_cell: SettingsCell, wantsToUpdateUserWith value: String, forSection section: SettingsSections)
+}
+
 class SettingsCell: UITableViewCell {
     
     //MARK: - Properties
+    weak var delegate: SettingsCellDelegate?
+    
     var viewModel: SettingsViewModel? {
         didSet {
             configureProperties()
@@ -18,6 +24,7 @@ class SettingsCell: UITableViewCell {
     
     private lazy var inputField: UITextField = {
         let tf = UITextField().makeTextField(placeholder: "", isSecureField: false)
+        tf.addTarget(self, action: #selector(handleUpdateUserInput), for: .editingDidEnd)
         return tf
     }()
     
@@ -91,5 +98,11 @@ class SettingsCell: UITableViewCell {
     
     @objc private func handleAgeRangeChanged(sender: UISlider) {
         
+    }
+    
+    @objc private func handleUpdateUserInput(sender: UITextField) {
+        print("DEBUG: Update user info here..")
+        guard let value = sender.text, let viewModel = viewModel else { return }
+        delegate?.settingsCell(_cell: self, wantsToUpdateUserWith: value, forSection: viewModel.section)
     }
 }
