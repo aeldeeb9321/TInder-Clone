@@ -13,6 +13,8 @@ struct CardViewModel {
     
     let userInfoText: NSAttributedString
     
+    let imageURLs: [String]
+    
     private var imageIndex = 0
     
     var imageUrl: URL?
@@ -27,7 +29,8 @@ struct CardViewModel {
         
         self.userInfoText = attributedText
         
-        self.imageUrl = URL(string: user.profileImageUrl)
+        self.imageURLs = user.imageURLs
+        self.imageUrl = URL(string: imageURLs[0])
     }
     
     //MARK: - Helpers

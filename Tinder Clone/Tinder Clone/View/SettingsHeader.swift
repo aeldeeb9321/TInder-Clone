@@ -15,14 +15,17 @@ class SettingsHeader: UIView {
     
     //MARK: - Properties
     
+    private let user: User
+    
     weak var delegate: SettingsHeaderDelegate?
     
     var buttons = [UIButton]()
 
     //MARK: - Init
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(user: User) {
+        self.user = user
+        super.init(frame: .zero)
         configureViewComponents()
     }
     
@@ -54,6 +57,29 @@ class SettingsHeader: UIView {
         
         addSubview(stack)
         stack.anchor(top: topAnchor, leading: button1.trailingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, paddingTop: 16, paddingLeading: 16, paddingBottom: 16, paddingTrailing: 16)
+        
+        loadUserPhotos()
+    }
+    
+    private func loadUserPhotos() {
+        let imageUrls = user.imageURLs.map({URL(string: $0)})
+        
+        for (index, url) in imageUrls.enumerated() {
+            Service.fetchImageData(imageUrl: url) { [weak self] result in
+                switch result {
+                case .success(let imageData):
+                    DispatchQueue.main.async {
+                        self?.buttons[index].setImage(UIImage(data: imageData)?.withRenderingMode(.alwaysOriginal), for: .normal)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
+            
+        }
+        
+        
     }
     
     private func createButton(_ index: Int) -> UIButton {

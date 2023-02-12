@@ -22,6 +22,7 @@ class CardView: UIView {
         let iv = UIImageView()
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
+        
         Service.fetchImageData(imageUrl: viewModel.imageUrl) { result in
             switch result {
             case .success(let imagedata):

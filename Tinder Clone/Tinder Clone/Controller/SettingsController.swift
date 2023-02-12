@@ -24,7 +24,7 @@ class SettingsController: UITableViewController {
     weak var delegate: SettingsControllerDelegate?
     
     private lazy var headerView: SettingsHeader = {
-        let header = SettingsHeader()
+        let header = SettingsHeader(user: user)
         header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 300)
         header.delegate = self
         return header
