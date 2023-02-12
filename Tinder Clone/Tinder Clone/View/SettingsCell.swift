@@ -8,7 +8,9 @@
 import UIKit
 
 protocol SettingsCellDelegate: AnyObject {
-    func settingsCell(_cell: SettingsCell, wantsToUpdateUserWith value: String, forSection section: SettingsSections)
+    func settingsCell(_ cell: SettingsCell, wantsToUpdateUserWith value: String, forSection section: SettingsSections)
+    
+    func settingsCell(_ cell: SettingsCell, wantsToUpdateAgeRangeWith sender: UISlider)
 }
 
 class SettingsCell: UITableViewCell {
@@ -29,17 +31,17 @@ class SettingsCell: UITableViewCell {
     }()
     
     private let minAgeLabel: UILabel = {
-        let label = UILabel().makebodyLabel(withText: "Min: 18")
+        let label = UILabel().makebodyLabel()
         return label
     }()
     
     private let maxAgeLabel: UILabel = {
-        let label = UILabel().makebodyLabel(withText: "Max: 60")
+        let label = UILabel().makebodyLabel()
         return label
     }()
     
-    private lazy var minAgeSlider = createAgeRangeSlider()
-    private lazy var maxAgeSlider = createAgeRangeSlider()
+    lazy var minAgeSlider = createAgeRangeSlider()
+    lazy var maxAgeSlider = createAgeRangeSlider()
     
     private var sliderStack = UIStackView()
     
@@ -47,6 +49,7 @@ class SettingsCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         configureCellUI()
     }
     
@@ -92,17 +95,29 @@ class SettingsCell: UITableViewCell {
         inputField.isHidden = viewModel.shouldHideInputField
         inputField.placeholder = viewModel.placeHolderText
         inputField.text = viewModel.value
+        
+        minAgeLabel.text = viewModel.minAgeLabelText(forValue: viewModel.minAgeSliderValue)
+        maxAgeLabel.text = viewModel.maxAgeLabelText(forValue: viewModel.maxAgeSliderValue)
+        
+        minAgeSlider.setValue(viewModel.minAgeSliderValue, animated: true)
+        maxAgeSlider.setValue(viewModel.maxAgeSliderValue, animated: true)
     }
     
     //MARK: - Selectors
     
     @objc private func handleAgeRangeChanged(sender: UISlider) {
+        if sender == minAgeSlider {
+            minAgeLabel.text = viewModel?.minAgeLabelText(forValue: sender.value)
+        } else {
+            maxAgeLabel.text = viewModel?.maxAgeLabelText(forValue: sender.value)
+        }
         
+        delegate?.settingsCell(self, wantsToUpdateAgeRangeWith: sender )
     }
     
     @objc private func handleUpdateUserInput(sender: UITextField) {
         print("DEBUG: Update user info here..")
         guard let value = sender.text, let viewModel = viewModel else { return }
-        delegate?.settingsCell(_cell: self, wantsToUpdateUserWith: value, forSection: viewModel.section)
+        delegate?.settingsCell(self, wantsToUpdateUserWith: value, forSection: viewModel.section)
     }
 }

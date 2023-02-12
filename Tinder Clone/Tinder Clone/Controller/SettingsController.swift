@@ -108,10 +108,6 @@ extension SettingsController {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 32
     }
@@ -154,7 +150,15 @@ extension SettingsController: UIImagePickerControllerDelegate, UINavigationContr
 //MARK: - SettingsCellDelegate
 
 extension SettingsController: SettingsCellDelegate {
-    func settingsCell(_cell: SettingsCell, wantsToUpdateUserWith value: String, forSection section: SettingsSections) {
+    func settingsCell(_ cell: SettingsCell, wantsToUpdateAgeRangeWith sender: UISlider) {
+        if sender == cell.minAgeSlider {
+            user.minSeekingAge = Int(sender.value)
+        } else {
+            user.maxSeekingAge = Int(sender.value)
+        }
+    }
+    
+    func settingsCell(_ cell: SettingsCell, wantsToUpdateUserWith value: String, forSection section: SettingsSections) {
         switch section {
         case .Name:
             user.name = value
