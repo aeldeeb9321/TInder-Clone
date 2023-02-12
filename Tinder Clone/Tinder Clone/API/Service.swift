@@ -6,6 +6,7 @@
 // It doesn't make sense to put this uploadImage function in our AuthService when its going to be used for other purposes other than authenticating users.
 
 import UIKit
+import Firebase
 import FirebaseStorage
 
 enum NetworkError: Error {
@@ -93,4 +94,17 @@ final class Service {
         }.resume()
         
     }
+    
+    static func saveUserData(user: User, completion: @escaping(Error?) -> Void) {
+        let data = ["uid": user.uid,
+                    "fullname": user.name,
+                    "imageURLs": user.imageURLs,
+                    "age": user.age, "bio": user.bio,
+                    "profession": user.profession,
+                    "minSeekingAge": user.minSeekingAge,
+                    "maxSeekingAge": user.maxSeekingAge] as [String : Any]
+        
+        COLLECTION_USERS.document(user.uid).setData(data, completion: completion)
+    }
+    
 }

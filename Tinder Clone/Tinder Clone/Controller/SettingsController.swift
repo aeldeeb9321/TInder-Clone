@@ -97,9 +97,16 @@ class SettingsController: UITableViewController {
     }
     
     @objc private func handleDone() {
-        print("DEBUG: Handle did tap done..")
         view.endEditing(true)
-        delegate?.settingsController(self, wantsToUpdate: user)
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Saving Your Data"
+        hud.show(in: view, animated: true)
+        
+        Service.saveUserData(user: user) { error in
+            self.delegate?.settingsController(self, wantsToUpdate: self.user)
+            hud.dismiss()
+        }
     }
 }
 
