@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 private let reuseId = "reuseId"
 
@@ -50,6 +51,19 @@ class SettingsController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    }
+    
+    //MARK: - API
+    
+    private func uploadImage(image: UIImage) {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Saving Image"
+        hud.show(in: view, animated: true)
+        
+        Service.uploadImage(image: image) { imageUrl in
+            self.user.imageURLs.append(imageUrl)
+            hud.dismiss(animated: true)
+        }
     }
     
     //MARK: - Helpers
@@ -141,6 +155,7 @@ extension SettingsController: UIImagePickerControllerDelegate, UINavigationContr
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
         
         //update button photo
+        uploadImage(image: selectedImage)
         setHeaderImage(selectedImage)
         
         dismiss(animated: true)
