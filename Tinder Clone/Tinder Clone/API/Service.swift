@@ -17,6 +17,12 @@ enum NetworkError: Error {
 
 final class Service {
     private let session = URLSession(configuration: .default)
+    static let shared = Service()
+    private var images = NSCache<NSString, NSData>()
+    
+    private init() {
+        
+    }
     
     static func fetchUser(withUID uid: String, completion: @escaping(User) -> Void) {
         COLLECTION_USERS.document(uid).getDocument { snapshot, error in
@@ -61,8 +67,14 @@ final class Service {
         }
     }
     
-    static func fetchImageData(imageUrl: URL?, completion: @escaping(Result<Data, NetworkError>) -> ()) {
+    //we didnt make it static since we were allowed to use class level instances with it, so we are going to use a singleton to get around this issue
+    func fetchImageData(imageUrl: URL?, completion: @escaping(Result<Data, NetworkError>) -> ()) {
         guard let url = imageUrl else { return }
+        
+        if let imageData = images.object(forKey: url.absoluteString as NSString) {
+            completion(.success(imageData as Data))
+            return
+        }
         
         URLSession.shared.downloadTask(with: url) { localUrl, response, error in
             guard error == nil else {
@@ -87,6 +99,7 @@ final class Service {
             
             do {
                 let imageData = try Data(contentsOf: localUrl)
+                self.images.setObject(imageData as NSData, forKey: url.absoluteString as NSString)
                 completion(.success(imageData))
             } catch let error {
                 print(error)

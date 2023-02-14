@@ -29,7 +29,7 @@ class HomeController: UIViewController {
     
     private let deckView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemPink
+        view.backgroundColor = .white
         view.layer.cornerRadius = 10
         return view
     }()
@@ -46,9 +46,12 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         checkIfUserIsLoggedIn()
         configureUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchUser()
         fetchUsers()
-        //logOut()
     }
     
     //MARK: - API
@@ -139,6 +142,11 @@ extension HomeController: HomeNavigationStackViewDelegate {
 }
 
 extension HomeController: SettingsControllerDelegate {
+    func settingsControllerWantsToLogout(_ controller: SettingsController) {
+        dismiss(animated: true)
+        logOut()
+    }
+    
     func settingsController(_ controller: SettingsController, wantsToUpdate user: User) {
         controller.dismiss(animated: true)
         self.user = user

@@ -65,7 +65,7 @@ class SettingsHeader: UIView {
         let imageUrls = user.imageURLs.map({URL(string: $0)})
         
         for (index, url) in imageUrls.enumerated() {
-            Service.fetchImageData(imageUrl: url) { [weak self] result in
+            Service.shared.fetchImageData(imageUrl: url) { [weak self] result in
                 switch result {
                 case .success(let imageData):
                     DispatchQueue.main.async {

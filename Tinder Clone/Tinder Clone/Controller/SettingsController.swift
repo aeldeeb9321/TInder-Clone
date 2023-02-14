@@ -13,6 +13,7 @@ private let reuseId = "reuseId"
 protocol SettingsControllerDelegate: AnyObject {
     //standard naming convention: name of the file, access to the file, and what it wants to do
     func settingsController(_ controller: SettingsController, wantsToUpdate user: User)
+    func settingsControllerWantsToLogout(_ controller: SettingsController)
 }
 
 class SettingsController: UITableViewController {
@@ -29,6 +30,13 @@ class SettingsController: UITableViewController {
         header.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 300)
         header.delegate = self
         return header
+    }()
+    
+    private lazy var footerView: SettingsFooter = {
+        let footer = SettingsFooter()
+        footer.delegate = self
+        footer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 88)
+        return footer
     }()
     
     private lazy var imagePicker: UIImagePickerController = {
@@ -72,6 +80,7 @@ class SettingsController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .systemGroupedBackground
         tableView.tableHeaderView = headerView
+        tableView.tableFooterView = footerView
         configureNavBar()
     }
     
@@ -166,6 +175,14 @@ extension SettingsController: UIImagePickerControllerDelegate, UINavigationContr
         setHeaderImage(selectedImage)
         
         dismiss(animated: true)
+    }
+}
+
+//MARK: - SettingsFooterDelegate
+
+extension SettingsController: SettingsFooterDelegate {
+    func handleLogout() {
+        delegate?.settingsControllerWantsToLogout(self)
     }
 }
 

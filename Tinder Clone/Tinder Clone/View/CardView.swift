@@ -11,6 +11,14 @@ class CardView: UIView {
      //MARK: - Properties
     private var viewModel: CardViewModel
     
+    private let barStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.spacing = 4
+        stack.distribution = .fillEqually
+        stack.setDimensions(height: 4)
+        return stack
+    }()
+    
     private lazy var gradientLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
         layer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
@@ -23,7 +31,7 @@ class CardView: UIView {
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
         
-        Service.fetchImageData(imageUrl: viewModel.imageUrl) { result in
+        Service.shared.fetchImageData(imageUrl: viewModel.imageUrl) { result in
             switch result {
             case .success(let imagedata):
                 DispatchQueue.main.async {
@@ -57,6 +65,7 @@ class CardView: UIView {
         super.init(frame: .zero)
         configureViewUI()
         configureGestureRecognizers()
+        configureBarStackView()
     }
     
     required init?(coder: NSCoder) {
@@ -85,6 +94,19 @@ class CardView: UIView {
         infoButton.centerY(inView: infoLabel)
         infoButton.anchor(trailing: safeAreaLayoutGuide.trailingAnchor, paddingTrailing: 16)
         
+    }
+    
+    private func configureBarStackView() {
+        //going to use the imageUrls Array on the viewModel to help figure out how many segmented bars we want
+        (0..<viewModel.imageURLs.count).forEach { _ in
+            let barView = UIView()
+            barView.backgroundColor = .barDeselectedColor
+            barStackView.addArrangedSubview(barView)
+        }
+        barStackView.arrangedSubviews.first?.backgroundColor =  viewModel.imageURLs.count > 1 ? .white: .clear
+       
+        addSubview(barStackView)
+        barStackView.anchor(top: safeAreaLayoutGuide.topAnchor, leading: safeAreaLayoutGuide.leadingAnchor, trailing: safeAreaLayoutGuide.trailingAnchor, paddingTop: 8, paddingLeading: 8, paddingTrailing: 8)
     }
     
     private func configureGestureRecognizers() {
@@ -152,6 +174,21 @@ class CardView: UIView {
         }
         
         //imageView.image = viewModel.imageToShow
+        Service.shared.fetchImageData(imageUrl: viewModel.imageUrl) { [weak self] result in
+            switch result {
+            case .success(let imageData):
+                DispatchQueue.main.async {
+                    self?.imageView.image = UIImage(data: imageData)
+                    self?.barStackView.arrangedSubviews.forEach({$0.backgroundColor = .barDeselectedColor})
+                    self?.barStackView.arrangedSubviews[self?.viewModel.index ?? 0].backgroundColor = self?.viewModel.imageURLs.count ?? 0 > 1 ? .white: .clear
+                }
+            case .failure(let error):
+                print(error)
+                break
+            }
+        }
+        
+        
     }
     
 }

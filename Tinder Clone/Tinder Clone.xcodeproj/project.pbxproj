@@ -36,6 +36,7 @@
 		25774E6029958ACD00A7EC13 /* SettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774E5F29958ACD00A7EC13 /* SettingsHeader.swift */; };
 		25774E6229959FDE00A7EC13 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774E6129959FDE00A7EC13 /* SettingsCell.swift */; };
 		25774E642995A0C400A7EC13 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774E632995A0C400A7EC13 /* SettingsViewModel.swift */; };
+		25774F1C299C22A400A7EC13 /* SettingsFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774F1B299C22A400A7EC13 /* SettingsFooter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		25774E5F29958ACD00A7EC13 /* SettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeader.swift; sourceTree = "<group>"; };
 		25774E6129959FDE00A7EC13 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		25774E632995A0C400A7EC13 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		25774F1B299C22A400A7EC13 /* SettingsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,11 +162,10 @@
 		25664BCA298996FE00D49135 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				25774F1A299C228B00A7EC13 /* Settings */,
 				25664BCE298998B400D49135 /* HomeNavigationStackView.swift */,
 				25664BD029899FD300D49135 /* BottomControlsStackView.swift */,
 				25774D2D2989A72600A7EC13 /* CardView.swift */,
-				25774E5F29958ACD00A7EC13 /* SettingsHeader.swift */,
-				25774E6129959FDE00A7EC13 /* SettingsCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,6 +186,16 @@
 				25774D38298B050E00A7EC13 /* RegistrationController.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		25774F1A299C228B00A7EC13 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				25774E6129959FDE00A7EC13 /* SettingsCell.swift */,
+				25774E5F29958ACD00A7EC13 /* SettingsHeader.swift */,
+				25774F1B299C22A400A7EC13 /* SettingsFooter.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,6 +285,7 @@
 				25774DEB2991852600A7EC13 /* Service.swift in Sources */,
 				25774DEF2992FF3200A7EC13 /* SettingsController.swift in Sources */,
 				25774D302989CE3600A7EC13 /* SwipeDirection.swift in Sources */,
+				25774F1C299C22A400A7EC13 /* SettingsFooter.swift in Sources */,
 				25774D2E2989A72600A7EC13 /* CardView.swift in Sources */,
 				25664BD129899FD300D49135 /* BottomControlsStackView.swift in Sources */,
 				25664BB72989966600D49135 /* HomeController.swift in Sources */,

@@ -138,4 +138,6 @@ extension UIColor {
     static var teal: UIColor {
         return UIColor.setRGB(red: 3, green: 218, blue: 197)
     }
+    
+    static let barDeselectedColor = UIColor(white: 0, alpha: 0.1)
 }

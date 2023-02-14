@@ -17,6 +17,11 @@ struct CardViewModel {
     
     private var imageIndex = 0
     
+    //we are using this instead of making imageIndex internal since we dont want to be able to modify the imageIndex outside of the viewModel. This index is not modifiable either as it is a get-only property
+    var index: Int {
+        return imageIndex
+    }
+    
     var imageUrl: URL?
     
     //MARK: - Init
