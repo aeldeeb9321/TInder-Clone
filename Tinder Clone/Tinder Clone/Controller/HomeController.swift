@@ -105,6 +105,7 @@ class HomeController: UIViewController {
     private func configureCards() {
         viewModels.forEach { viewModel in
             let cardView = CardView(viewModel: viewModel)
+            cardView.delegate = self
             deckView.addSubview(cardView)
             cardView.fillSuperView(inView: deckView)
         }
@@ -153,3 +154,11 @@ extension HomeController: SettingsControllerDelegate {
     }
 }
 
+//MARK: - CardViewDelegate
+
+extension HomeController: CardViewDelegate {
+    func cardView(_ view: CardView, wantsToShowProfileFor user: User) {
+        print("DEBUG: Present profile controller")
+    }
+    
+}

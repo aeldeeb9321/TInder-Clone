@@ -7,9 +7,16 @@
 
 import UIKit
 
+protocol CardViewDelegate: AnyObject {
+    func cardView(_ view: CardView, wantsToShowProfileFor user: User)
+}
+
 class CardView: UIView {
      //MARK: - Properties
+    
     private var viewModel: CardViewModel
+    
+    weak var delegate: CardViewDelegate?
     
     private let barStackView: UIStackView = {
         let stack = UIStackView()
@@ -53,7 +60,7 @@ class CardView: UIView {
     
     private lazy var infoButton: UIButton = {
         let button = UIButton().makeButton(withImage: #imageLiteral(resourceName: "info_icon").withRenderingMode(.alwaysOriginal), isRounded: false)
-        button.addTarget(self, action: #selector(handleInfoButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleShowProfile), for: .touchUpInside)
         button.setDimensions(height: 40, width: 40)
         return button
     }()
@@ -145,8 +152,8 @@ class CardView: UIView {
     }
     
     //MARK: - Selectors
-    @objc private func handleInfoButtonTapped() {
-        print("DEBUG: Info button tapped")
+    @objc private func handleShowProfile() {
+        delegate?.cardView(self, wantsToShowProfileFor: viewModel.user)
     }
     
     @objc private func handlePanGesture(sender: UIPanGestureRecognizer) {
