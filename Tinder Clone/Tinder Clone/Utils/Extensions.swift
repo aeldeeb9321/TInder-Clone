@@ -108,12 +108,12 @@ extension UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
-        button.setImage(image, for: .normal)
+        button.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFill
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.backgroundColor = buttonColor
         button.layer.cornerRadius =  isRounded ? 10: 0
-        
-        
+    
         return button
     }
 }

@@ -158,7 +158,16 @@ extension HomeController: SettingsControllerDelegate {
 
 extension HomeController: CardViewDelegate {
     func cardView(_ view: CardView, wantsToShowProfileFor user: User) {
-        print("DEBUG: Present profile controller")
+        let controller = ProfileController(user: user)
+        controller.delegate = self
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
+    
+}
+
+extension HomeController: ProfileControllerDelegate {
+    
+    
     
 }
