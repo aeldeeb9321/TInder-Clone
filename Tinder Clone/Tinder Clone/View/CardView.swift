@@ -18,10 +18,8 @@ class CardView: UIView {
     
     weak var delegate: CardViewDelegate?
     
-    private let barStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.spacing = 4
-        stack.distribution = .fillEqually
+    private lazy var barStackView: SegmentedBarView = {
+        let stack = SegmentedBarView(numberOfSegments: viewModel.imageURLs.count)
         stack.setDimensions(height: 4)
         return stack
     }()
@@ -105,12 +103,6 @@ class CardView: UIView {
     
     private func configureBarStackView() {
         //going to use the imageUrls Array on the viewModel to help figure out how many segmented bars we want
-        (0..<viewModel.imageURLs.count).forEach { _ in
-            let barView = UIView()
-            barView.backgroundColor = .barDeselectedColor
-            barStackView.addArrangedSubview(barView)
-        }
-        barStackView.arrangedSubviews.first?.backgroundColor =  viewModel.imageURLs.count > 1 ? .white: .clear
        
         addSubview(barStackView)
         barStackView.anchor(top: safeAreaLayoutGuide.topAnchor, leading: safeAreaLayoutGuide.leadingAnchor, trailing: safeAreaLayoutGuide.trailingAnchor, paddingTop: 8, paddingLeading: 8, paddingTrailing: 8)
@@ -186,8 +178,7 @@ class CardView: UIView {
             case .success(let imageData):
                 DispatchQueue.main.async {
                     self?.imageView.image = UIImage(data: imageData)
-                    self?.barStackView.arrangedSubviews.forEach({$0.backgroundColor = .barDeselectedColor})
-                    self?.barStackView.arrangedSubviews[self?.viewModel.index ?? 0].backgroundColor = self?.viewModel.imageURLs.count ?? 0 > 1 ? .white: .clear
+                    self?.barStackView.setHighlighted(index: self?.viewModel.index ?? 0)
                 }
             case .failure(let error):
                 print(error)

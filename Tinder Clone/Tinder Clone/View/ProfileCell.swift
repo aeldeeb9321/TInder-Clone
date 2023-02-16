@@ -11,7 +11,12 @@ class ProfileCell: UICollectionViewCell {
     
     //MARK: - Properties
     
-    
+    var imageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        return iv
+    }()
     
     //MARK: - Init
     
@@ -27,6 +32,7 @@ class ProfileCell: UICollectionViewCell {
     //MARK: - Helpers
     
     private func configureCellComponents() {
-        
+        addSubview(imageView)
+        imageView.fillSuperView(inView: self)
     }
 }

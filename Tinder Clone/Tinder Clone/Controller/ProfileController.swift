@@ -19,6 +19,8 @@ class ProfileController: UIViewController {
     
     private let user: User
     
+    private lazy var viewModel = ProfileViewModel(user: user)
+    
     weak var delegate: ProfileControllerDelegate?
     
     private lazy var collectionView: UICollectionView = {
@@ -33,6 +35,12 @@ class ProfileController: UIViewController {
         return cv
     }()
     
+    private lazy var barStackView: SegmentedBarView = {
+        let stack = SegmentedBarView(numberOfSegments: viewModel.imageURLs.count)
+        stack.setDimensions(height: 4)
+        return stack
+    }()
+    
     private lazy var dismissButton: UIButton = {
         let button = UIButton().makeButton(withImage: UIImage(named: "dismiss_down_arrow")?.withRenderingMode(.alwaysOriginal))
         button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
@@ -41,17 +49,18 @@ class ProfileController: UIViewController {
     }()
     
     private lazy var infoLabel: UILabel = {
-        let label = UILabel().makeLabel(withText: user.name + " \(user.age)", textColor: .label, withFont: UIFont.boldSystemFont(ofSize: 20))
+        let label = UILabel().makeLabel(textColor: .label, withFont: UIFont.boldSystemFont(ofSize: 20))
+        label.attributedText = viewModel.userDetailsAttributedString
         return label
     }()
     
     private lazy var professionLabel: UILabel = {
-        let label = UILabel().makebodyLabel(withText: user.profession)
+        let label = UILabel().makebodyLabel(withText: viewModel.profession)
         return label
     }()
     
     private lazy var bioLabel: UILabel = {
-        let label = UILabel().makebodyLabel(withText: user.bio)
+        let label = UILabel().makebodyLabel(withText: viewModel.bio)
         return label
     }()
     
@@ -88,6 +97,7 @@ class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureBarStackView()
     }
     
     //MARK: - Helpers
@@ -118,6 +128,11 @@ class ProfileController: UIViewController {
         stack.centerX(inView: view)
         stack.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 32)
     }
+
+    private func configureBarStackView() {
+        view.addSubview(barStackView)
+        barStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 8, paddingLeading: 8, paddingTrailing: 8)
+    }
     
     //MARK: - Selectors
     
@@ -142,24 +157,35 @@ class ProfileController: UIViewController {
 
 extension ProfileController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ProfileCell
         
-        if indexPath.row == 0 {
-            cell.backgroundColor = .red
-        } else {
-            cell.backgroundColor = .blue
+        Service.shared.fetchImageData(imageUrl: viewModel.imageURLs[indexPath.item]) { result in
+            switch result {
+            case .success(let imageData):
+                DispatchQueue.main.async {
+                    cell.imageView.image = UIImage(data: imageData)
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return user.imageURLs.count
+        return viewModel.imageCount
     }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
 
 extension ProfileController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        barStackView.setHighlighted(index: indexPath.item)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.width + 100)
     }
