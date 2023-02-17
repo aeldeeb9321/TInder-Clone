@@ -34,11 +34,17 @@ class HomeController: UIViewController {
         return view
     }()
     
-    private let bottomStackView: BottomControlsStackView = {
+    private lazy var bottomStackView: BottomControlsStackView = {
         let stackView = BottomControlsStackView()
+        stackView.delegate = self
         stackView.setDimensions(height: 60)
         return stackView
     }()
+    
+    //This will be the class level property to keep track of all our cardViews
+    private var cardViews = [CardView]()
+    //last element in our cardViews array will be our topCardView
+    private var topCardView: CardView?
     
     //MARK: - LifeCycle
     
@@ -109,7 +115,9 @@ class HomeController: UIViewController {
             deckView.addSubview(cardView)
             cardView.fillSuperView(inView: deckView)
         }
-
+        
+        //This is taking all the subviews in the deckview and creating an array from iut
+        cardViews = deckView.subviews.map({ $0 as! CardView })
     }
 
     private func presentLoginController() {
@@ -166,8 +174,30 @@ extension HomeController: CardViewDelegate {
     
 }
 
+//MARK: - BottomControlsStackViewDelegate
+
+extension HomeController: BottomControlsStackViewDelegate {
+    func handleLike() {
+        print("DEBUG: Liked user")
+    }
+    
+    func handleDislike() {
+        print("DEBUG: Disliked user")
+    }
+    
+    func handleRefresh() {
+        print("DEBUG: User has refeshed")
+    }
+    
+    
+}
+
+
+//MARK: - ProfileControllerDelegate
+
 extension HomeController: ProfileControllerDelegate {
     
     
     
 }
+

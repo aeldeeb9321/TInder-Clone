@@ -23,6 +23,12 @@ class ProfileController: UIViewController {
     
     weak var delegate: ProfileControllerDelegate?
     
+    private let blurView: UIVisualEffectView = {
+        let blur = UIBlurEffect(style: .light)
+        let effect = UIVisualEffectView(effect: blur)
+        return effect
+    }()
+    
     private lazy var collectionView: UICollectionView = {
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.width + 100)
         let layout = UICollectionViewFlowLayout()
@@ -115,6 +121,10 @@ class ProfileController: UIViewController {
         
         view.addSubview(infoStack)
         infoStack.anchor(top: collectionView.bottomAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor, paddingTop: 12, paddingLeading: 12, paddingTrailing: 12)
+        
+        view.addSubview(blurView)
+        blurView.anchor(top: view.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.topAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor)
+        
         configureBottomControls()
     }
     

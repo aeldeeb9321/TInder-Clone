@@ -46,7 +46,7 @@ extension UIView {
     }
     
     func fillSuperView(inView view: UIView) {
-        anchor(top: view.safeAreaLayoutGuide.topAnchor,
+        anchor(top: view.topAnchor,
                leading: view.safeAreaLayoutGuide.leadingAnchor,
                bottom: view.safeAreaLayoutGuide.bottomAnchor,
                trailing: view.safeAreaLayoutGuide.trailingAnchor)

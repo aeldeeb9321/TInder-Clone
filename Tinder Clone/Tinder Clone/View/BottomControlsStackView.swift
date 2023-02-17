@@ -7,8 +7,17 @@
 
 import UIKit
 
+protocol BottomControlsStackViewDelegate: AnyObject {
+    func handleLike()
+    func handleDislike()
+    func handleRefresh()
+}
+
 class BottomControlsStackView: UIStackView {
     //MARK: - Properties
+    
+    weak var delegate: BottomControlsStackViewDelegate?
+    
     private lazy var refreshButton: UIButton = {
         let button = UIButton().makeButton(withImage: #imageLiteral(resourceName: "refresh_circle").withRenderingMode(.alwaysOriginal), isRounded: false)
         button.setDimensions(height: 40, width: 40)
@@ -65,11 +74,11 @@ class BottomControlsStackView: UIStackView {
     
     //MARK: - Selectors
     @objc private func refreshButtonTapped() {
-        
+        delegate?.handleRefresh()
     }
     
     @objc private func dislikeButtonTapped() {
-        
+        delegate?.handleDislike()
     }
     
     @objc private func superLikeButtonTapped() {
@@ -77,7 +86,7 @@ class BottomControlsStackView: UIStackView {
     }
     
     @objc private func likeButtonTapped() {
-        
+        delegate?.handleLike()
     }
     
     @objc private func boostButtonTapped() {
