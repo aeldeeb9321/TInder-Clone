@@ -133,7 +133,7 @@ class ProfileController: UIViewController {
         stack.distribution = .fillEqually
         stack.spacing = -32
         stack.setDimensions(height: 80, width: 300)
-        
+
         view.addSubview(stack)
         stack.centerX(inView: view)
         stack.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 32)
