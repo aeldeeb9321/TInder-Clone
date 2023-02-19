@@ -45,6 +45,20 @@ final class Service {
         }
     }
     
+    static func saveSwipe(forUser user: User, isLiked: Bool) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let shouldLike = isLiked ? true: false
+        COLLECTION_SWIPES.document(uid).getDocument { snapshot, error in
+            let data = [user.uid: shouldLike]
+            
+            if snapshot?.exists == true {
+                COLLECTION_SWIPES.document(uid).updateData(data)
+            } else {
+                COLLECTION_SWIPES.document(uid).setData(data)
+            }
+        }
+    }
+    
     static func uploadImage(image: UIImage, completion: @escaping(String) -> Void) {
         //creating imageData to be able to upload it to the database
         guard let imageData = image.jpegData(compressionQuality: 0.75) else { return }

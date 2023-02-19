@@ -196,14 +196,15 @@ extension HomeController: BottomControlsStackViewDelegate {
     func handleLike() {
         // This is how we know we are always going to have a topcard
         guard let topCard = topCardView else { return }
-        
         performSwipeAnimation(shouldLike: true)
+        Service.saveSwipe(forUser: topCard.viewModel.user, isLiked: true)
         print("DEBUG: Liked card for \(topCard.viewModel.user.name)")
     }
     
     func handleDislike() {
-        print("DEBUG: Disliked user")
+        guard let topCard = topCardView else { return }
         performSwipeAnimation(shouldLike: false)
+        Service.saveSwipe(forUser: topCard.viewModel.user, isLiked: false)
     }
     
     func handleRefresh() {
