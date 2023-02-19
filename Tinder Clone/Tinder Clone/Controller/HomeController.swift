@@ -116,8 +116,9 @@ class HomeController: UIViewController {
             cardView.fillSuperView(inView: deckView)
         }
         
-        //This is taking all the subviews in the deckview and creating an array from iut
+        //This is taking all the subviews in the deckview and creating an array from it
         cardViews = deckView.subviews.map({ $0 as! CardView })
+        topCardView = cardViews.last
     }
 
     private func presentLoginController() {
@@ -129,6 +130,21 @@ class HomeController: UIViewController {
         }
     }
     
+    private func performSwipeAnimation(shouldLike: Bool) {
+        let translation: CGFloat = shouldLike ? 700: -700
+        guard let width = self.topCardView?.frame.width, let height = self.topCardView?.frame.height else { return }
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut) {
+            self.topCardView?.frame = CGRect(x: translation, y: 0,
+                                             width: width,
+                                             height: height)
+        } completion: { _ in
+            self.topCardView?.removeFromSuperview()
+            guard !self.cardViews.isEmpty else { return }
+            self.cardViews.remove(at: self.cardViews.count - 1)
+            self.topCardView = self.cardViews.last
+        }
+
+    }
     //MARK: - Selectors
     
 }
@@ -178,11 +194,16 @@ extension HomeController: CardViewDelegate {
 
 extension HomeController: BottomControlsStackViewDelegate {
     func handleLike() {
-        print("DEBUG: Liked user")
+        // This is how we know we are always going to have a topcard
+        guard let topCard = topCardView else { return }
+        
+        performSwipeAnimation(shouldLike: true)
+        print("DEBUG: Liked card for \(topCard.viewModel.user.name)")
     }
     
     func handleDislike() {
         print("DEBUG: Disliked user")
+        performSwipeAnimation(shouldLike: false)
     }
     
     func handleRefresh() {

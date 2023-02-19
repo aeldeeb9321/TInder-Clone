@@ -14,7 +14,7 @@ protocol CardViewDelegate: AnyObject {
 class CardView: UIView {
      //MARK: - Properties
     
-    private var viewModel: CardViewModel
+    var viewModel: CardViewModel
     
     weak var delegate: CardViewDelegate?
     
