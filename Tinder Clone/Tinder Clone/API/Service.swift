@@ -39,7 +39,10 @@ final class Service {
             snapshot?.documents.forEach({ document in
                 let dictionary = document.data()
                 let user = User(dictionary: dictionary)
+                
+                guard user.uid != Auth.auth().currentUser?.uid else { return }
                 users.append(user)
+                
             })
             completion(users)
         }

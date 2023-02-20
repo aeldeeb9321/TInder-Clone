@@ -85,6 +85,7 @@ class CardView: UIView {
     
     //MARK: - Helpers
     private func configureViewUI() {
+        backgroundColor = .white
         layer.cornerRadius = 10
         clipsToBounds = true
         
