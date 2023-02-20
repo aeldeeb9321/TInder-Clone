@@ -9,6 +9,7 @@ import UIKit
 
 protocol CardViewDelegate: AnyObject {
     func cardView(_ view: CardView, wantsToShowProfileFor user: User)
+    func cardView(_ view: CardView, didLikeUser: Bool)
 }
 
 class CardView: UIView {
@@ -131,9 +132,13 @@ class CardView: UIView {
         } completion: { _ in
             if shouldDismissCard {
                 self.removeFromSuperview()
+                let didLike = direction == .right
+                self.delegate?.cardView(self, didLikeUser: didLike)
             }
         }
     }
+    
+    // You dont want to put any kind of code in a view class that involves reaching out to your api regardless of design pattern architecture. This must be delegated.
     
     private func panCard(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self)

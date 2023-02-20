@@ -10,7 +10,8 @@ import UIKit
 private let reuseIdentifier = "reuse Id"
 
 protocol ProfileControllerDelegate: AnyObject {
-   
+    func profileController(_ controller: ProfileController, didLikeUser user: User)
+    func profileController(_ controller: ProfileController, didDislikeUser user: User)
 }
 
 class ProfileController: UIViewController {
@@ -151,7 +152,7 @@ class ProfileController: UIViewController {
     }
     
     @objc private func handleDislike() {
-        
+        delegate?.profileController(self, didDislikeUser: user)
     }
     
     @objc private func handleSuperLike() {
@@ -159,7 +160,7 @@ class ProfileController: UIViewController {
     }
     
     @objc private func handleLike() {
-        
+        delegate?.profileController(self, didLikeUser: user)
     }
 }
 
