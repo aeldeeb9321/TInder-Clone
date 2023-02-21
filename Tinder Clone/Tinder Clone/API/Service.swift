@@ -32,6 +32,16 @@ final class Service {
         }
     }
     
+    static func checkIfMatchExists(forUser user: User, completion: @escaping(Bool) -> Void) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        COLLECTION_SWIPES.document(user.uid).getDocument { snapshot, error in
+            guard let data = snapshot?.data() else { return }
+            guard let didMatch = data[currentUid] as? Bool else { return }
+            completion(didMatch)
+        }
+    }
+    
     static func fetchUsers(completion: @escaping([User]) -> Void) {
         var users = [User]()
         COLLECTION_USERS.getDocuments { snapshot, errror in
@@ -48,7 +58,7 @@ final class Service {
         }
     }
     
-    static func saveSwipe(forUser user: User, isLiked: Bool) {
+    static func saveSwipe(forUser user: User, isLiked: Bool, completion: ((Error?) -> Void)?) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let shouldLike = isLiked ? true: false
         COLLECTION_SWIPES.document(uid).getDocument { snapshot, error in
@@ -57,7 +67,7 @@ final class Service {
             if snapshot?.exists == true {
                 COLLECTION_SWIPES.document(uid).updateData(data)
             } else {
-                COLLECTION_SWIPES.document(uid).setData(data)
+                COLLECTION_SWIPES.document(uid).setData(data,completion: completion)
             }
         }
     }
