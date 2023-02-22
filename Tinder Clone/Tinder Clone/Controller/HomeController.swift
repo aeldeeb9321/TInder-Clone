@@ -95,13 +95,16 @@ class HomeController: UIViewController {
     }
     
     private func saveSwipeAndCheckForMatch(forUser user: User, didLike: Bool) {
-        Service.saveSwipe(forUser: user, isLiked: didLike) { _ in
+        Service.saveSwipe(forUser: user, isLiked: didLike) { error in
+            // reset top card view
             self.topCardView = self.cardViews.last
             
             guard didLike == true else { return }
             
-            Service.checkIfMatchExists(forUser: user) { isMatched in
-                print("Users did match")
+            // FIXME: - presentMatchView is not getting called
+            
+            Service.checkIfMatchExists(forUser: user) { didMatch in
+                self.presentMatchView(forUser: user)
             }
         }
     }
@@ -157,6 +160,14 @@ class HomeController: UIViewController {
         }
 
     }
+    
+    private func presentMatchView(forUser user: User) {
+        guard let currentUser = self.user else { return }
+        let matchView = MatchView(currentUser: currentUser, matchedUser: user)
+        view.addSubview(matchView)
+        matchView.fillSuperView(inView: view)
+    }
+    
     //MARK: - Selectors
     
 }
@@ -235,7 +246,6 @@ extension HomeController: BottomControlsStackViewDelegate {
         print("DEBUG: User has refeshed")
     }
     
-    
 }
 
 
@@ -254,7 +264,8 @@ extension HomeController: ProfileControllerDelegate {
     func profileController(_ controller: ProfileController, didDislikeUser user: User) {
         controller.dismiss(animated: true) {
             self.performSwipeAnimation(shouldLike: false)
-            self.saveSwipeAndCheckForMatch(forUser: user, didLike: false)
+            // Don't need to check for a match unless it's a like
+            Service.saveSwipe(forUser: user, isLiked: false, completion: nil)
         }
         
     }

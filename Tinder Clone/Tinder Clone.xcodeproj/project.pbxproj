@@ -41,6 +41,7 @@
 		25774F20299D8A9700A7EC13 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774F1F299D8A9700A7EC13 /* ProfileCell.swift */; };
 		25774F22299ED8E200A7EC13 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774F21299ED8E200A7EC13 /* ProfileViewModel.swift */; };
 		25774F24299EEB4000A7EC13 /* SegmentedBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774F23299EEB4000A7EC13 /* SegmentedBarView.swift */; };
+		25774F2629A6BFDF00A7EC13 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774F2529A6BFDF00A7EC13 /* MatchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		25774F1F299D8A9700A7EC13 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		25774F21299ED8E200A7EC13 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		25774F23299EEB4000A7EC13 /* SegmentedBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedBarView.swift; sourceTree = "<group>"; };
+		25774F2529A6BFDF00A7EC13 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				25774D2D2989A72600A7EC13 /* CardView.swift */,
 				25774F1F299D8A9700A7EC13 /* ProfileCell.swift */,
 				25774F23299EEB4000A7EC13 /* SegmentedBarView.swift */,
+				25774F2529A6BFDF00A7EC13 /* MatchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				25774F1E299D7AE600A7EC13 /* ProfileController.swift in Sources */,
 				25774DED2992DC2E00A7EC13 /* Constants.swift in Sources */,
 				25774D342989D31200A7EC13 /* CardViewModel.swift in Sources */,
+				25774F2629A6BFDF00A7EC13 /* MatchView.swift in Sources */,
 				25664BB32989966600D49135 /* AppDelegate.swift in Sources */,
 				25774D322989D20900A7EC13 /* User.swift in Sources */,
 				25774F22299ED8E200A7EC13 /* ProfileViewModel.swift in Sources */,
