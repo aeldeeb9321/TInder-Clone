@@ -42,6 +42,8 @@
 		25774F22299ED8E200A7EC13 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774F21299ED8E200A7EC13 /* ProfileViewModel.swift */; };
 		25774F24299EEB4000A7EC13 /* SegmentedBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774F23299EEB4000A7EC13 /* SegmentedBarView.swift */; };
 		25774F2629A6BFDF00A7EC13 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774F2529A6BFDF00A7EC13 /* MatchView.swift */; };
+		25774F2829A95AD600A7EC13 /* SendMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774F2729A95AD600A7EC13 /* SendMessageButton.swift */; };
+		25774F2A29A95AE100A7EC13 /* KeepSwipingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25774F2929A95AE100A7EC13 /* KeepSwipingButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +79,8 @@
 		25774F21299ED8E200A7EC13 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		25774F23299EEB4000A7EC13 /* SegmentedBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedBarView.swift; sourceTree = "<group>"; };
 		25774F2529A6BFDF00A7EC13 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
+		25774F2729A95AD600A7EC13 /* SendMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageButton.swift; sourceTree = "<group>"; };
+		25774F2929A95AE100A7EC13 /* KeepSwipingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepSwipingButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +185,8 @@
 				25774F1F299D8A9700A7EC13 /* ProfileCell.swift */,
 				25774F23299EEB4000A7EC13 /* SegmentedBarView.swift */,
 				25774F2529A6BFDF00A7EC13 /* MatchView.swift */,
+				25774F2729A95AD600A7EC13 /* SendMessageButton.swift */,
+				25774F2929A95AE100A7EC13 /* KeepSwipingButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -319,7 +325,9 @@
 				25774E6029958ACD00A7EC13 /* SettingsHeader.swift in Sources */,
 				25664BCD2989983600D49135 /* Extensions.swift in Sources */,
 				25774DE92991851D00A7EC13 /* AuthService.swift in Sources */,
+				25774F2A29A95AE100A7EC13 /* KeepSwipingButton.swift in Sources */,
 				25774F20299D8A9700A7EC13 /* ProfileCell.swift in Sources */,
+				25774F2829A95AD600A7EC13 /* SendMessageButton.swift in Sources */,
 				25774DF12992FFD100A7EC13 /* MessagesController.swift in Sources */,
 				25774E642995A0C400A7EC13 /* SettingsViewModel.swift in Sources */,
 			);

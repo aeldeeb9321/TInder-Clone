@@ -45,14 +45,18 @@ class MatchView: UIView {
     }()
     
     private lazy var sendMessageButton: UIButton = {
-        let button = UIButton().makeButton(withTitle: "SEND MESSAGE", titleColor: .white)
+        let button = SendMessageButton()
+        button.setTitle("SEND MESSAGE", for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(didTapSendMessage), for: .touchUpInside)
+        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return button
     }()
     
     private lazy var keepSwipingButton: UIButton = {
         let button = UIButton().makeButton(withTitle: "KEEP SWIPING", titleColor: .white)
         button.addTarget(self, action: #selector(didTapKeepSwiping), for: .touchUpInside)
+        button.heightAnchor.constraint(equalToConstant: 50).isActive = true 
         return button
     }()
     
