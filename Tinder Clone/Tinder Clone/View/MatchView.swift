@@ -54,7 +54,9 @@ class MatchView: UIView {
     }()
     
     private lazy var keepSwipingButton: UIButton = {
-        let button = UIButton().makeButton(withTitle: "KEEP SWIPING", titleColor: .white)
+        let button = KeepSwipingButton(type: .system)
+        button.setTitle("Keep Swiping", for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(didTapKeepSwiping), for: .touchUpInside)
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true 
         return button
